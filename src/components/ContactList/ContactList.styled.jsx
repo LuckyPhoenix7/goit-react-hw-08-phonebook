@@ -1,45 +1,34 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { setFilter } from 'redux/filterSlice';
+// import styled from 'styled-components';
 
-import {
-  Box,
-  FormControl,
-  Input,
-  Text,
-  useColorModeValue,
-} from '@chakra-ui/react';
-import { selectFilter } from 'redux/selectors';
+// export const List = styled.ul`
+//   list-style-type: none;
+//   padding: 0;
+//   width: 560px;
+//   margin: 20px auto;
+// `;
 
-export const Filter = () => {
-  const dispatch = useDispatch();
-  const filter = useSelector(selectFilter);
+// export const Contact = styled.li`
+//   background-color: ${p => p.theme.colors.listItemBg};
+//   margin-bottom: 8px;
+//   padding: 10px;
+//   border-radius: 5px;
+// `;
 
-  const handleChange = event => {
-    dispatch(setFilter(event.target.value));
-  };
+import styled from 'styled-components';
 
-  const filterBgColor = useColorModeValue('teal.200', 'teal.700');
+export const List = styled.ul`
+  list-style-type: none;
+  padding: 0;
+  width: 560px;
+  margin: 20px auto;
+  background-color: ${p => p.theme.colors.background}; // Светлый бежевый
+`;
 
-  return (
-    <Box
-      p={6}
-      borderWidth="1px"
-      borderRadius="md"
-      boxShadow="base"
-      bg={filterBgColor}
-    >
-      <Text mb={2} fontSize="md" fontWeight="bold">
-        Find contacts by name
-      </Text>
-      <FormControl>
-        <Input
-          type="text"
-          name="filter"
-          placeholder="Enter name to find"
-          value={filter}
-          onChange={handleChange}
-        />
-      </FormControl>
-    </Box>
-  );
-};
+export const Contact = styled.li`
+  background-color: ${p => p.theme.colors.primary}; // Пыльная роза
+  color: ${p => p.theme.colors.text}; // Темно-коричневый
+  margin-bottom: 8px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid ${p => p.theme.colors.secondaryText}; // Бледно-розовый
+`;

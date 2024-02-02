@@ -9,31 +9,31 @@ const initialState = {
 
 const arrThunks = [addContact, deleteContact, fetchContacts];
 
-const func = type => arrThunks.map(el => el[type]);
+const fn = type => arrThunks.map(el => el[type]);
 
-const onPending = state => {
+const handlePending = state => {
   state.isLoading = true;
 };
 
-const onReject = (state, action) => {
+const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
 };
 
-const onFulfill = (state, action) => {
+const handleFulfilled = (state, action) => {
   state.isLoading = false;
   state.error = null;
 };
 
-const onContacts = (state, action) => {
+const handleFulfilledFetchContacts = (state, action) => {
   state.items = action.payload;
 };
 
-const onAddContact = (state, action) => {
+const handleFulfilledAddContact = (state, action) => {
   state.items.push(action.payload);
 };
 
-const onDeleteContact = (state, action) => {
+const handleFulfilledDelContact = (state, action) => {
   state.items = state.items.filter(item => item.id !== action.payload.id);
 };
 
@@ -42,12 +42,12 @@ const contactsSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(fetchContacts.fulfilled, onContacts)
-      .addCase(addContact.fulfilled, onAddContact)
-      .addCase(deleteContact.fulfilled, onDeleteContact)
-      .addMatcher(isAnyOf(...func('pending')), onPending)
-      .addMatcher(isAnyOf(...func('rejected')), onReject)
-      .addMatcher(isAnyOf(...func('fulfilled')), onFulfill);
+      .addCase(fetchContacts.fulfilled, handleFulfilledFetchContacts)
+      .addCase(addContact.fulfilled, handleFulfilledAddContact)
+      .addCase(deleteContact.fulfilled, handleFulfilledDelContact)
+      .addMatcher(isAnyOf(...fn('pending')), handlePending)
+      .addMatcher(isAnyOf(...fn('rejected')), handleRejected)
+      .addMatcher(isAnyOf(...fn('fulfilled')), handleFulfilled);
   },
 });
 

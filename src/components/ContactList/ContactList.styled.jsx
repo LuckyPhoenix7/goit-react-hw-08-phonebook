@@ -1,41 +1,45 @@
-import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilter } from 'redux/filterSlice';
 
-export const StyledList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
+import {
+  Box,
+  FormControl,
+  Input,
+  Text,
+  useColorModeValue,
+} from '@chakra-ui/react';
+import { selectFilter } from 'redux/selectors';
 
-export const ListItem = styled.li`
-  background-color: white;
+export const Filter = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector(selectFilter);
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  const handleChange = event => {
+    dispatch(setFilter(event.target.value));
+  };
 
-  padding: 10px;
-  margin-bottom: 10px;
+  const filterBgColor = useColorModeValue('teal.200', 'teal.700');
 
-  border: 1px solid lightgrey;
-  border-radius: 5px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-`;
-
-export const DeleteBtn = styled.button`
-  background-color: #ff6b6b;
-  color: white;
-
-  padding: 5px 10px;
-
-  border: none;
-  border-radius: 5px;
-
-  transition: background-color 250ms;
-  cursor: pointer;
-
-  &:hover,
-  &:focus {
-    background-color: #ff3b3b;
-  }
-`;
+  return (
+    <Box
+      p={6}
+      borderWidth="1px"
+      borderRadius="md"
+      boxShadow="base"
+      bg={filterBgColor}
+    >
+      <Text mb={2} fontSize="md" fontWeight="bold">
+        Find contacts by name
+      </Text>
+      <FormControl>
+        <Input
+          type="text"
+          name="filter"
+          placeholder="Enter name to find"
+          value={filter}
+          onChange={handleChange}
+        />
+      </FormControl>
+    </Box>
+  );
+};

@@ -1,18 +1,16 @@
-import { ThreeCircles } from 'react-loader-spinner';
+import { MagnifyingGlass } from 'react-loader-spinner';
+import { LoaderContainer } from './Loader.styled';
 
 export const Loader = () => (
-  <ThreeCircles
-    height="100"
-    width="100"
-    color="#3f51b5"
-    wrapperStyle={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '50vh',
-      width: '100vw',
-    }}
-    visible={true}
-    ariaLabel="three-circles-rotating"
-  />
+  <LoaderContainer>
+    <MagnifyingGlass
+      visible={true}
+      height="80"
+      width="80"
+      ariaLabel="Loading"
+      wrapperClass="MagnifyingGlass-wrapper"
+      glassColor="#B2F5EA"
+      color="#319795"
+    />
+  </LoaderContainer>
 );
